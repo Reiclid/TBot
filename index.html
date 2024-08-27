@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Parrot Bot</title>
+</head>
+<body>
+    <h1>Telegram Parrot Bot</h1>
+    <input type="text" id="chatId" placeholder="Enter chat ID">
+    <input type="text" id="message" placeholder="Enter message">
+    <button onclick="sendMessage()">Send Message</button>
+
+    <script>
+        const token = '7129766445:AAEEqsUTJ4aYRv37wVtx9LiLpd45iD7e1Ek';
+
+        function sendMessage() {
+            const chatId = document.getElementById('chatId').value;
+            const text = document.getElementById('message').value;
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: text
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Message sent:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
